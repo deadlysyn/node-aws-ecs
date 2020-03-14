@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+REPO="${1?Must provide repository name.}"
+TAG="${2:-latest}"
+
+aws --profile="${PROFILE}" ecr batch-delete-image \
+  --region "${REGION}" \
+  --repository-name "${REPO}" \
+  --image-ids imageTag="${TAG}"
+

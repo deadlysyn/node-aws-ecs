@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+IMAGE="${1?Must provide image name.}"
+TAG="${2:-latest}"
+
+docker tag "${IMAGE}:${TAG}" "${REPO_URI}:${TAG}"
+
+docker push "${REPO_URI}:${TAG}"
+

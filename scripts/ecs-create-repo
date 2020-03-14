@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+REPO="${1?Must provide repository name.}"
+
+aws --profile="${PROFILE}" ecr create-repository \
+  --region "${REGION}" \
+  --image-scanning-configuration scanOnPush=true \
+  --repository-name "$REPO"
+
