@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+REPO="${1?Must provide repository name.}"
+
+aws --profile="${PROFILE}" ecr describe-images \
+  --region "${REGION}" \
+  --repository-name "${REPO}"
+
