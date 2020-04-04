@@ -15,8 +15,7 @@ COPY package*.json ./
 # https://blog.npmjs.org/post/171556855892/introducing-npm-ci-for-faster-more-reliable
 RUN npm ci --only=production
 
-RUN mkdir -p ./src
-COPY --chown=999:999 src ./src/
+COPY --chown=999:999 src ./src
 
 USER node
 
