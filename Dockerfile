@@ -2,7 +2,9 @@ FROM node:lts-alpine
 LABEL maintainer="mrh@devopsdreams.io"
 
 # Dependencies
-RUN apk update && apk upgrade
+RUN apk update && \
+      apk upgrade && \
+      apk add curl
 
 ENV NODE_ENV production
 WORKDIR /app
@@ -14,7 +16,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 RUN mkdir -p ./src
-COPY --chown=999:999 server.js ./src
+COPY --chown=999:999 src ./src/
 
 USER node
 
