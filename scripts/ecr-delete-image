@@ -3,10 +3,15 @@
 set -eu -o pipefail
 
 REPO="${1?Must provide repository name.}"
-TAG="${2:-latest}"
+TAG_OR_DIGEST="${2:-latest}"
+ID="imageTag=${TAG_OR_DIGEST}"
+
+if echo $TAG_OR_DIGEST | grep -e '^sha256' >/dev/null; then
+  ID="imageDigest=${TAG_OR_DIGEST}"
+fi
 
 aws --profile="${PROFILE}" ecr batch-delete-image \
   --region "${REGION}" \
   --repository-name "${REPO}" \
-  --image-ids imageTag="${TAG}"
+  --image-ids "${ID}"
 
