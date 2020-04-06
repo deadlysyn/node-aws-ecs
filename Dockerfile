@@ -4,7 +4,7 @@ LABEL maintainer="mrh@devopsdreams.io"
 # Dependencies
 RUN apk update && \
       apk upgrade && \
-      apk add curl
+      apk --no-cache add curl
 
 ENV NODE_ENV production
 WORKDIR /app
@@ -21,3 +21,4 @@ USER node
 
 EXPOSE 8080
 CMD [ "node", "./src/server.js" ]
+
