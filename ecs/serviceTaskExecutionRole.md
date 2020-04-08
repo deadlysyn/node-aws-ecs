@@ -1,13 +1,16 @@
 # Creating a service-specific task execution role
 
 1. Create a new IAM role
-2. Atach the AWS managed policy `AmazonECSTaskExecutionRolePolicy`
-3. Attach a managed policy granting access to parameters, secrets and log groups if needed
+2. Attach the AWS managed policy `AmazonECSTaskExecutionRolePolicy`
+3. Attach a new managed policy granting access to parameters, secrets and log groups as needed
 4. You can drop `kms:Decrypt` if not using custom KMS keys
+5. Use these in your task definitions instead of `ecsTaskExecutionRole`
+6. Profit!
 
 ```json
 {
   "Version": "2012-10-17",
+  "Sid": "serviceTaskExecutionRole",
   "Statement": [
     {
       "Sid": "AllowParametersAndSecrets",
@@ -34,5 +37,14 @@
       ]
     }
   ]
+}
+```
+
+```json
+{
+  ...
+  "executionRoleArn": "arn:aws:iam::012345678901:role/serviceTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::012345678901:role/serviceTaskExecutionRole",
+  ...
 }
 ```
