@@ -8,9 +8,10 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
+          "awslogs-create-group": true,
           "awslogs-group": "/ecs/hello-world",
           "awslogs-region": "us-east-2",
-          "awslogs-stream-prefix": "ecs"
+          "awslogs-stream-prefix": "hello-world-app"
         }
       },
       "entryPoint": null,
@@ -20,9 +21,9 @@
           "protocol": "tcp"
         }
       ],
-      "command": ["node", "./src/server.js"],
+      "command": ["node", "--max-old-space-size=128", "./src/server.js"],
       "linuxParameters": null,
-      "cpu": 0,
+      "cpu": 256,
       "environment": [
         {
           "name": "LISTEN_HOST",
@@ -50,7 +51,7 @@
       ],
       "dockerSecurityOptions": null,
       "memory": 512,
-      "memoryReservation": 512,
+      "memoryReservation": 256,
       "volumesFrom": [],
       "stopTimeout": 20,
       "image": "012345678901.dkr.ecr.us-east-2.amazonaws.com/hello-world:latest",
@@ -75,8 +76,8 @@
       "readonlyRootFilesystem": true,
       "dockerLabels": null,
       "systemControls": null,
-      "privileged": null,
-      "name": "hello-world"
+      "privileged": false,
+      "name": "hello-world-app"
     }
   ],
   "placementConstraints": [],
