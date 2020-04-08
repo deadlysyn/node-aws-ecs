@@ -9,8 +9,8 @@ To use the task definition template above, you'll need to add permission to crea
 1. Create a new IAM role called `${serviceName}TaskExecutionRole`
 2. Attach the AWS managed policy `AmazonECSTaskExecutionRolePolicy` (don't reinvent this wheel)
 3. Attach new managed policy granting access to parameters or secrets
-4. Attach new managed policy to allow creating log groups
 5. You can drop `kms:Decrypt` and the `kms` resource if not using custom KMS keys
+4. Attach new managed policy to allow creating log groups
 6. Use these in your task definitions instead of `ecsTaskExecutionRole`
 7. Profit!
 
