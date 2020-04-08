@@ -1,5 +1,9 @@
+# For production, you might lock this at a version like node:12-alpine
 FROM node:lts-alpine
+
 LABEL maintainer="mrh@devopsdreams.io"
+LABEL environment="development"
+LABEL description="simple hello world web service"
 
 # Dependencies
 RUN apk update && \
@@ -9,19 +13,19 @@ RUN apk update && \
 WORKDIR /app
 
 # Ensure we get package-lock.json
-COPY --chown=node:node package*.json ./
-
-# Run as non-root user provided by Alpine
-USER node
+COPY package*.json ./
 
 # https://blog.npmjs.org/post/171556855892/introducing-npm-ci-for-faster-more-reliable
 RUN npm ci --only=production
 
 COPY --chown=node:node src ./src
 
+# Run as non-root user provided by Alpine
+USER node
+
+# Use non-privileged port if not running as root
 EXPOSE 8080
 
-# For small instances, set --max_old_space_size to 4/5ths
-# of available memory.
-CMD [ "node", "--max-old-space-size=256", "./src/server.js" ]
+# Optimized for small instances
+CMD [ "node", "--max-old-space-size=128", "./src/server.js" ]
 
