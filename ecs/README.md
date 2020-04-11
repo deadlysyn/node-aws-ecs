@@ -1,10 +1,14 @@
 # AWS ECS Fargate Task Definition
 
-[task-definition.json](https://gitlab.com/deadlysyn/node-aws-ecs/-/raw/master/ecs/task-definition.json) provides a good starting point for AWS ECS Fargate tasks, including shipping logs via CloudWatch, using ECR, container health checking and injecting secrets.. Consult [the docs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) to modify as needed.
+[task-definition.json](https://gitlab.com/deadlysyn/node-aws-ecs/-/raw/master/ecs/task-definition.json) provides
+a good starting point for AWS ECS Fargate tasks, including shipping logs via CloudWatch, using ECR, container
+health checking and injecting secrets... Consult
+[the docs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) to modify as needed.
 
 # Service-specific task execution role
 
-To use the task definition template above, you'll need to add permission to create CloudWatch log groups, and access either Secrets Manager or Parameter Store (you likely don't need both).
+To use the task definition template above, you'll need to add permission to create CloudWatch log groups,
+and access either Secrets Manager or Parameter Store (you likely don't need both).
 
 1. Create a new IAM role called `${serviceName}TaskExecutionRole`
 2. Attach the AWS managed policy `AmazonECSTaskExecutionRolePolicy` (don't reinvent this wheel)
@@ -16,7 +20,8 @@ To use the task definition template above, you'll need to add permission to crea
 
 ## Secrets Policy
 
-Think carefully about how you grant access to secrets. You don't want a single compromised service to facilitate side channel access to other secrets.
+Think carefully about how you grant access to secrets. You don't want a single compromised service to facilitate
+side-channel access to other secrets.
 
 If using Parameter Store:
 
@@ -64,7 +69,9 @@ If using Secrets Manager:
 
 ## Logs Policy
 
-The AWS managed policy `AmazonECSTaskExecutionRolePolicy` allows creating log streams within an existing group, but if you try to create a task with a role which can not create groups your instances will fail to start...you either need to manually create the log groups, or grant permission to your task execution role.
+The AWS managed policy `AmazonECSTaskExecutionRolePolicy` allows creating log streams within an existing group,
+but if you try to create a task with a role which can not create groups your instances will fail to start...you
+either need to manually create the log groups, or grant permission to your task execution role.
 
 ```json
 {
