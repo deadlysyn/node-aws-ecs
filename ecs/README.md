@@ -7,6 +7,10 @@ health checking and injecting secrets... Consult
 
 # Service-specific task execution role
 
+*NOTE: Since writing this, I've noticed permission to create CloudWatch Log Groups
+is included in `AmazonECSTaskExecutionRolePolicy`. I'm leaving references to managing
+that manually here in case useful...but it should not be needed anymore!*
+
 To use the task definition template above, you'll need to add permission to create CloudWatch log groups,
 and access either Secrets Manager or Parameter Store (you likely don't need both).
 
