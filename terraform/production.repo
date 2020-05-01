@@ -1,0 +1,1 @@
+# populate this file by `terraform output ecr_repo > ${environment}.repo`
