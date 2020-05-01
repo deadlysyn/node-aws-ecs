@@ -34,7 +34,7 @@
     "secrets": [
       {
         "name": "TEST_SECRET",
-        "valueFrom": "arn:aws:ssm:us-east-2:025749995053:parameter/hello-world/TEST_SECRET"
+        "valueFrom": "arn:aws:ssm:us-east-2:012345678901:parameter/hello-world/TEST_SECRET"
       }
     ],
     "memory": ${memory_limit},
