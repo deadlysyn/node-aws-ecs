@@ -42,8 +42,8 @@ terraform apply plan
 terraform destroy -var-file=hello-world.tfvars
 ```
 
-Once the ECS infra is plumbed, push updates using the `do` admin script. It will let
-you build and run a local image and deploy to ECS. It depends on a
+Once the ECS infra is plumbed, push updates using the `do` admin script from project root.
+It will let you build and run a local image and deploy to ECS, and depends on a
 `terraform/${environment}.repo` file populated by `terraform output ecr_repo > terraform/${environment}.repo`.
 
 ```console
