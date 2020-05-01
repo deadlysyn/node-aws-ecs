@@ -1,4 +1,4 @@
-# Shipping Containerized Node.js Apps with AWS ECS
+# Shipping Node.js Apps with AWS ECS
 
 This repo is part of a blog series covering how to ship containerized Node.js
 apps using Amazon's Elastic Container Service (ECS).
