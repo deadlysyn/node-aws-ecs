@@ -1,0 +1,57 @@
+[
+  {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/${name}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${name}-app"
+      }
+    },
+    "portMappings": [
+      {
+        "containerPort": ${port},
+        "protocol": "tcp"
+      }
+    ],
+    "command": ["node", "--max-old-space-size=128", "./src/server.js"],
+    "cpu": ${cpu},
+    "environment": [
+      {
+        "name": "LISTEN_HOST",
+        "value": "0.0.0.0"
+      },
+      {
+        "name": "LISTEN_PORT",
+        "value": "${port}"
+      },
+      {
+        "name": "NODE_ENV",
+        "value": "production"
+      }
+    ],
+    "workingDirectory": "/app",
+    "secrets": [
+      {
+        "name": "TEST_SECRET",
+        "valueFrom": "arn:aws:ssm:us-east-2:025749995053:parameter/hello-world/TEST_SECRET"
+      }
+    ],
+    "memory": ${memory_limit},
+    "memoryReservation": ${memory_reserve},
+    "stopTimeout": 20,
+    "image": "${image}",
+    "startTimeout": 20,
+    "healthCheck": {
+      "retries": 3,
+      "command": ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"],
+      "timeout": 10,
+      "interval": 20,
+      "startPeriod": 20
+    },
+    "essential": true,
+    "readonlyRootFilesystem": true,
+    "privileged": false,
+    "name": "${name}-app"
+  }
+]
