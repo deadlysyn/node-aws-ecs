@@ -1,0 +1,11 @@
+role_name            = "helloWorldTaskExecutionRole"
+region               = "us-east-2"
+environment          = "production"
+app_name             = "hello-world"
+container_port       = 8080
+task_cpu             = 256
+task_memory_limit    = 512
+task_memory_reserve  = 256
+instance_count       = 1
+instance_percent_min = 0
+instance_percent_max = 100
